@@ -36,6 +36,7 @@ class ReportList extends React.Component {
 								type={report.type}
 								frequency={report.frequency}
 								active={report.active}
+								chartType={report.chartType}
 							/>
 						);
 					})}

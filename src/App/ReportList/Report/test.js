@@ -13,6 +13,7 @@ describe('App', () => {
 				type="Report Type"
 				frequency="Report Frequency"
 				active={true}
+				chartType="pie"
 			/>
 		);
 	});
@@ -63,5 +64,14 @@ describe('App', () => {
 
 	it('should render a view button with a chart icon', () => {
 		expect(element.find('View')).toHaveLength(1);
+	});
+
+	it('should pass chart type to Icons Component', () => {
+		expect(
+			element
+				.find('View')
+				.find('Icons')
+				.prop('chartType')
+		).toEqual('pie');
 	});
 });

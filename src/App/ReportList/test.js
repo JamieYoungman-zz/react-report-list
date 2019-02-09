@@ -25,7 +25,7 @@ describe('App', () => {
 		expect(element.find('Report')).toHaveLength(MockData.length);
 	});
 
-	it('shhould pass a prop to Report for report name, type and frequency updated', () => {
+	it('shhould pass a prop to Report for report name, type, frequency updated and chartType', () => {
 		MockData.forEach((item, index) => {
 			expect(
 				element
@@ -45,6 +45,12 @@ describe('App', () => {
 					.at(index)
 					.prop('frequency')
 			).toEqual(item.frequency);
+			expect(
+				element
+					.find('Report')
+					.at(index)
+					.prop('chartType')
+			).toEqual(item.chartType);
 		});
 	});
 

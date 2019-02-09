@@ -1,9 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartPie } from '@fortawesome/free-solid-svg-icons';
-import { faChartBar } from '@fortawesome/free-solid-svg-icons';
+import Icons from './Icons';
 
 const breakPoints = {
 	xlarge: '1200px',
@@ -57,6 +54,7 @@ const View = styled.div`
 View.displayName = 'View';
 
 const Report = props => {
+	console.log(props);
 	return (
 		<Wrapper>
 			<Title>{props.name}</Title>
@@ -66,7 +64,7 @@ const Report = props => {
 				Active: <ActiveIcon active={props.active} />
 			</Active>
 			<View>
-				View <FontAwesomeIcon icon={faChartBar} color="#463b84" />
+				View <Icons chartType={props.chartType} />
 			</View>
 		</Wrapper>
 	);
