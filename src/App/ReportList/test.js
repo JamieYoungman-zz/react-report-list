@@ -13,7 +13,12 @@ describe('App', () => {
 	});
 
 	it('should render something', () => {
-		expect(element.find('Title').text()).toEqual('Report List');
+		expect(
+			element
+				.find('Title')
+				.dive()
+				.text()
+		).toEqual('Report List');
 	});
 
 	it('should render a report for every item in the data', () => {

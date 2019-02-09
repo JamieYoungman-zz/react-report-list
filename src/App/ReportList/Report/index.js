@@ -21,6 +21,15 @@ View.displayName = 'View';
 const Active = styled.div``;
 Active.displayName = 'Active';
 
+const ActiveIcon = styled.span`
+	height: 12px;
+	width: 12px;
+	background: ${props => (props.active ? 'green' : 'red')};
+	border-radius: 50%;
+	display: inline-block;
+`;
+ActiveIcon.displayName = 'ActiveIcon';
+
 const Report = props => {
 	return (
 		<Wrapper>
@@ -28,11 +37,7 @@ const Report = props => {
 			<Type>Type: {props.type}</Type>
 			<Frequency>Frequency: {props.frequency}</Frequency>
 			<Active>
-				{props.active ? (
-					<View>View</View>
-				) : (
-					<p>Sorry this report is no longer active</p>
-				)}
+				Active: <ActiveIcon active={props.active} />
 			</Active>
 		</Wrapper>
 	);
