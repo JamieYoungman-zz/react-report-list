@@ -60,4 +60,8 @@ describe('App', () => {
 
 		expect(element.find('ActiveIcon')).toHaveStyleRule('background', 'red');
 	});
+
+	it('should render a view button with a chart icon', () => {
+		expect(element.find('View')).toHaveLength(1);
+	});
 });

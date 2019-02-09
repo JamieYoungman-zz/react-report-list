@@ -1,22 +1,42 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChartPie } from '@fortawesome/free-solid-svg-icons';
+import { faChartBar } from '@fortawesome/free-solid-svg-icons';
+
+const breakPoints = {
+	xlarge: '1200px',
+	large: '1000px',
+	medium: '800px',
+	small: '600px',
+	xsmall: '400px'
+};
+
 const Wrapper = styled.div`
-	width: 100%;
+	width: 20%;
 	float: left;
+	margin-top: 24px;
+	@media (max-width: ${breakPoints.large}) {
+		width: 30%;
+	}
 `;
 
-const Title = styled.h3``;
+const Title = styled.h3`
+	margin-top: 0;
+`;
 Title.displayName = 'Title';
 
-const Type = styled.p``;
+const Type = styled.p`
+	margin-bottom: 4px;
+`;
 Type.displayName = 'Type';
 
-const Frequency = styled.p``;
+const Frequency = styled.p`
+	margin-bottom: 4px;
+	margin-top: 0;
+`;
 Frequency.displayName = 'Frequency';
-
-const View = styled.button``;
-View.displayName = 'View';
 
 const Active = styled.div``;
 Active.displayName = 'Active';
@@ -30,6 +50,12 @@ const ActiveIcon = styled.span`
 `;
 ActiveIcon.displayName = 'ActiveIcon';
 
+const View = styled.div`
+	margin-top: 12px;
+	cursor: pointer;
+`;
+View.displayName = 'View';
+
 const Report = props => {
 	return (
 		<Wrapper>
@@ -39,6 +65,9 @@ const Report = props => {
 			<Active>
 				Active: <ActiveIcon active={props.active} />
 			</Active>
+			<View>
+				View <FontAwesomeIcon icon={faChartBar} color="#463b84" />
+			</View>
 		</Wrapper>
 	);
 };

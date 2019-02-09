@@ -8,6 +8,12 @@ const Title = styled.h1`
 `;
 Title.displayName = 'Title';
 
+const Grid = styled.div`
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+`;
+
 class ReportList extends React.Component {
 	constructor(props) {
 		super(props);
@@ -21,18 +27,19 @@ class ReportList extends React.Component {
 		return (
 			<React.Fragment>
 				<Title>Report List</Title>
-
-				{reports.map(report => {
-					return (
-						<Report
-							key={report.name}
-							name={report.name}
-							type={report.type}
-							frequency={report.frequency}
-							active={report.active}
-						/>
-					);
-				})}
+				<Grid>
+					{reports.map(report => {
+						return (
+							<Report
+								key={report.name}
+								name={report.name}
+								type={report.type}
+								frequency={report.frequency}
+								active={report.active}
+							/>
+						);
+					})}
+				</Grid>
 			</React.Fragment>
 		);
 	}
