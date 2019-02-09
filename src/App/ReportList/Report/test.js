@@ -63,14 +63,14 @@ describe('App', () => {
 	});
 
 	it('should render a view button with a chart icon', () => {
-		expect(element.find('View')).toHaveLength(1);
+		expect(element.find('Chart')).toHaveLength(1);
 	});
 
 	it('should pass chart type to Icons Component', () => {
 		expect(
 			element
-				.find('View')
-				.find('Icons')
+				.find('Chart')
+				.find('Icon')
 				.prop('chartType')
 		).toEqual('pie');
 	});

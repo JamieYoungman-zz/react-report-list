@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Icons from './Icons';
+import Icon from './Icons';
 
 const breakPoints = {
 	xlarge: '1200px',
@@ -35,7 +35,9 @@ const Frequency = styled.p`
 `;
 Frequency.displayName = 'Frequency';
 
-const Active = styled.div``;
+const Active = styled.div`
+	margin-bottom: 4px;
+`;
 Active.displayName = 'Active';
 
 const ActiveIcon = styled.span`
@@ -47,14 +49,10 @@ const ActiveIcon = styled.span`
 `;
 ActiveIcon.displayName = 'ActiveIcon';
 
-const View = styled.div`
-	margin-top: 12px;
-	cursor: pointer;
-`;
-View.displayName = 'View';
+const Chart = styled.div``;
+Chart.displayName = 'Chart';
 
 const Report = props => {
-	console.log(props);
 	return (
 		<Wrapper>
 			<Title>{props.name}</Title>
@@ -63,9 +61,9 @@ const Report = props => {
 			<Active>
 				Active: <ActiveIcon active={props.active} />
 			</Active>
-			<View>
-				View <Icons chartType={props.chartType} />
-			</View>
+			<Chart>
+				Chart Type: <Icon chartType={props.chartType} />
+			</Chart>
 		</Wrapper>
 	);
 };

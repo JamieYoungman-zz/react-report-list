@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartPie } from '@fortawesome/free-solid-svg-icons';
 import { faChartBar } from '@fortawesome/free-solid-svg-icons';
 
-const Icons = ({ chartType }) => {
+const Icon = ({ chartType }) => {
 	const iconSet = {
 		bar: faChartBar,
 		column: faChartBar,
@@ -14,4 +14,4 @@ const Icons = ({ chartType }) => {
 	return <FontAwesomeIcon icon={iconSet[chartType]} color="#463b84" />;
 };
 
-export default Icons;
+export default Icon;
