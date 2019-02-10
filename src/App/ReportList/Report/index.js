@@ -11,32 +11,41 @@ const breakPoints = {
 };
 
 const Wrapper = styled.div`
-	width: 20%;
-	float: left;
-	margin-top: 24px;
-	@media (max-width: ${breakPoints.large}) {
-		width: 30%;
-	}
+	width: 100%;
+	display: flex;
+	flex-flow: row;
+	justify-content: space-between;
 `;
 
-const Title = styled.h3`
-	margin-top: 0;
+const Item = styled.div`
+	width: 45%;
+	padding: 8px;
+	border-top: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	text-align: center;
+`;
+Item.displayName = 'Item';
+
+const Title = styled(Item)`
+	font-size: 16px;
+	font-weight: normal;
+	margin: 0;
+	text-align: left;
 `;
 Title.displayName = 'Title';
 
-const Type = styled.p`
-	margin-bottom: 4px;
+const Type = styled(Item)`
+	width: 15%;
 `;
 Type.displayName = 'Type';
 
-const Frequency = styled.p`
-	margin-bottom: 4px;
-	margin-top: 0;
+const Frequency = styled(Item)`
+	width: 15%;
 `;
 Frequency.displayName = 'Frequency';
 
-const Active = styled.div`
-	margin-bottom: 4px;
+const Active = styled(Item)`
+	width: 10%;
 `;
 Active.displayName = 'Active';
 
@@ -49,21 +58,23 @@ const ActiveIcon = styled.span`
 `;
 ActiveIcon.displayName = 'ActiveIcon';
 
-const Chart = styled.div``;
+const Chart = styled(Item)`
+	width: 15%;
+`;
 Chart.displayName = 'Chart';
 
 const Report = props => {
 	return (
 		<Wrapper>
 			<Title>{props.name}</Title>
-			<Type>Type: {props.type}</Type>
-			<Frequency>Frequency: {props.frequency}</Frequency>
-			<Active>
-				Active: <ActiveIcon active={props.active} />
-			</Active>
+			<Type>{props.type}</Type>
+			<Frequency>{props.frequency}</Frequency>
 			<Chart>
-				Chart Type: <Icon chartType={props.chartType} />
+				<Icon chartType={props.chartType} />
 			</Chart>
+			<Active>
+				<ActiveIcon active={props.active} />
+			</Active>
 		</Wrapper>
 	);
 };

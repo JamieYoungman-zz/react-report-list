@@ -5,7 +5,7 @@ import ReportData from './mock-data.json';
 
 const Container = styled.div`
 	margin: 0 auto;
-	width: 96%;
+	width: 92%;
 	max-width: 1200px;
 `;
 Container.displayName = 'Container';

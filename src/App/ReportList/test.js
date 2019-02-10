@@ -5,6 +5,8 @@ import ReportList from './';
 
 const MockData = ReportData;
 
+const tableHeadings = ['Name', 'Type', 'Frequency', 'Chart Type', 'Active'];
+
 describe('App', () => {
 	let element;
 
@@ -19,6 +21,20 @@ describe('App', () => {
 				.dive()
 				.text()
 		).toEqual('Report List');
+	});
+
+	it('should have a table header', () => {
+		expect(element.find('TableHeader')).toHaveLength(1);
+
+		tableHeadings.forEach((heading, index) => {
+			expect(
+				element
+					.find('TableHeading')
+					.at(index)
+					.dive()
+					.text()
+			).toEqual(heading);
+		});
 	});
 
 	it('should render a report for every item in the data', () => {

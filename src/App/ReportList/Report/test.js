@@ -23,6 +23,7 @@ describe('App', () => {
 			element
 				.find('Title')
 				.dive()
+				.dive()
 				.text()
 		).toEqual('Report Name');
 	});
@@ -32,8 +33,9 @@ describe('App', () => {
 			element
 				.find('Type')
 				.dive()
+				.dive()
 				.text()
-		).toEqual('Type: Report Type');
+		).toEqual('Report Type');
 	});
 
 	it('should render a report Frequency', () => {
@@ -41,8 +43,9 @@ describe('App', () => {
 			element
 				.find('Frequency')
 				.dive()
+				.dive()
 				.text()
-		).toEqual('Frequency: Report Frequency');
+		).toEqual('Report Frequency');
 	});
 
 	it('should render a coloured icon for active state', () => {
