@@ -9,6 +9,7 @@ const Title = styled.h1`
 Title.displayName = 'Title';
 
 const TableHeader = styled.div`
+	margin-top: 24px;
 	width: 100%;
 	display: flex;
 	flex-flow: row;
@@ -40,15 +41,52 @@ const Grid = styled.div`
 	border-bottom: 1px solid #ccc;
 `;
 Grid.displayName = 'Grid';
+
+const Sort = styled.div`
+	width: auto;
+	float: left;
+	margin-bottom: 24px;
+`;
+Sort.displayName = 'Sort';
+
+const SortSelect = styled.select`
+	padding: 8px;
+`;
+SortSelect.displayName = 'SortSelect';
+
+const SortLabel = styled.label`
+	float: left;
+	margin-right: 12px;
+`;
+SortLabel.displayName = 'SortLabel';
+
 class ReportList extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			reports: props.data
 		};
+		this.handleSortBy = this.handleSortBy.bind(this);
+	}
+
+	handleSortBy(event) {
+		if (event.target.value === 'A-Z') {
+			return this.setState({
+				reports: this.state.reports.sort((a, b) =>
+					a.name.localeCompare(b.name)
+				)
+			});
+		}
+		this.setState({
+			reports: this.state.reports
+				.sort((a, b) => a.name.localeCompare(b.name))
+				.reverse()
+		});
 	}
 	render() {
 		const { reports } = this.state;
+
+		console.log(reports);
 
 		const tableHeadings = [
 			'Name',
@@ -61,6 +99,15 @@ class ReportList extends React.Component {
 		return (
 			<React.Fragment>
 				<Title>Report List</Title>
+				<Sort>
+					<SortLabel>Sort Report Name by:</SortLabel>
+					<SortSelect onChange={this.handleSortBy}>
+						<option value="Select">Select</option>
+						<option value="A-Z">A-Z</option>
+						<option value="Z-A">Z-A</option>
+					</SortSelect>
+				</Sort>
+
 				<TableHeader>
 					{tableHeadings.map(heading => {
 						return (
@@ -78,6 +125,7 @@ class ReportList extends React.Component {
 								frequency={report.frequency}
 								active={report.active}
 								chartType={report.chartType}
+								sortBy={() => this.sortBy}
 							/>
 						);
 					})}

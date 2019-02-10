@@ -1,9 +1,41 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import ReportData from '../mock-data.json';
 import ReportList from './';
 
-const MockData = ReportData;
+const MockData = [
+	{
+		name: 'Thirty day visitor report',
+		type: 'Visitors',
+		chartType: 'bar',
+		filterTypes: ['Gender', 'Age range'],
+		frequency: 'monthly',
+		active: true
+	},
+	{
+		name: 'Daily visitors report',
+		type: 'Visitors',
+		chartType: 'column',
+		filterTypes: [],
+		frequency: 'daily',
+		active: true
+	},
+	{
+		name: 'Thirty day gender report',
+		type: 'Gender',
+		chartType: 'pie',
+		filterTypes: ['Location', 'Age range'],
+		frequency: 'monthly',
+		active: true
+	},
+	{
+		name: 'Weekly age range report',
+		type: 'Age range',
+		chartType: 'bar',
+		filterTypes: ['Device type', 'Operating system'],
+		frequency: 'weekly',
+		active: false
+	}
+];
 
 const tableHeadings = ['Name', 'Type', 'Frequency', 'Chart Type', 'Active'];
 
@@ -83,5 +115,45 @@ describe('App', () => {
 				.at(3)
 				.prop('active')
 		).toBe(false);
+	});
+
+	it('should sort the list by default order', () => {
+		expect(
+			element
+				.find('Report')
+				.at(0)
+				.prop('name')
+		).toEqual('Thirty day visitor report');
+	});
+
+	it('should sort the list by A-Z or Z-A when an option is selected', () => {
+		expect(
+			element
+				.find('Report')
+				.at(0)
+				.prop('name')
+		).toEqual('Thirty day visitor report');
+
+		element.find('SortSelect').prop('onChange')({
+			target: { value: 'A-Z' }
+		});
+
+		expect(
+			element
+				.find('Report')
+				.at(0)
+				.prop('name')
+		).toEqual('Daily visitors report');
+
+		element.find('SortSelect').prop('onChange')({
+			target: { value: 'Z-A' }
+		});
+
+		expect(
+			element
+				.find('Report')
+				.at(0)
+				.prop('name')
+		).toEqual('Weekly age range report');
 	});
 });
