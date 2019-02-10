@@ -13,6 +13,7 @@ const TableHeader = styled.div`
 	display: flex;
 	flex-flow: row;
 	justify-content: space-between;
+	border-left: 1px solid #ccc;
 `;
 TableHeader.displayName = 'TableHeader';
 
@@ -20,19 +21,17 @@ const TableHeading = styled.div`
 	font-weight: bold;
 	font-size: 18px;
 	text-align: center;
-	${props => {
-		switch (props.index) {
-			case 0:
-				return 'width: 45%; border-left: 1px solid #ccc; text-align: left;';
-			case 4:
-				return 'width: 10%';
-			default:
-				return 'width: 15%';
-		}
-	}}
 	padding: 8px;
 	border-top: 1px solid #ccc;
 	border-right: 1px solid #ccc;
+	width: 15%;
+	&:first-child {
+		width: 45%;
+		text-align: left;
+	}
+	&:last-child {
+		width: 10%;
+	}
 `;
 TableHeading.displayName = 'TableHeading';
 
@@ -63,11 +62,9 @@ class ReportList extends React.Component {
 			<React.Fragment>
 				<Title>Report List</Title>
 				<TableHeader>
-					{tableHeadings.map((heading, index) => {
+					{tableHeadings.map(heading => {
 						return (
-							<TableHeading index={index} key={heading}>
-								{heading}
-							</TableHeading>
+							<TableHeading key={heading}>{heading}</TableHeading>
 						);
 					})}
 				</TableHeader>
