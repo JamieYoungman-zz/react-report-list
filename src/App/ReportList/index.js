@@ -94,7 +94,7 @@ class ReportList extends React.Component {
 		}
 	}
 	render() {
-		const { reports } = this.state;
+		const { reports, sort, filter } = this.state;
 
 		const tableHeadings = [
 			'Name',
@@ -136,16 +136,15 @@ class ReportList extends React.Component {
 				<Grid>
 					{reports
 						.sort((a, b) => {
-							if (this.state.sort !== undefined) {
-								return this.state.sort === 'A-Z'
+							if (sort !== undefined) {
+								return sort === 'A-Z'
 									? a.name.localeCompare(b.name)
 									: b.name.localeCompare(a.name);
 							}
+							return reports;
 						})
 						.filter(
-							item =>
-								this.state.filter === undefined ||
-								item.type === this.state.filter
+							item => filter === undefined || item.type === filter
 						)
 						.map(report => (
 							<Report
