@@ -26,8 +26,17 @@ const TableHeading = styled.div`
 	border-top: 1px solid #ccc;
 	border-right: 1px solid #ccc;
 	width: 15%;
+	${props => {
+		switch (props.index) {
+			case 4:
+				return 'width: 10%;';
+			default:
+				return 'width: 15%';
+		}
+	}}
+
 	&:first-child {
-		width: 45%;
+		width: 35%;
 		text-align: left;
 	}
 	&:last-child {
@@ -37,6 +46,7 @@ const TableHeading = styled.div`
 TableHeading.displayName = 'TableHeading';
 
 const Grid = styled.div`
+	width: 100%;
 	border-left: 1px solid #ccc;
 	border-bottom: 1px solid #ccc;
 `;
@@ -78,6 +88,7 @@ class ReportList extends React.Component {
 		};
 		this.handleSortBy = this.handleSortBy.bind(this);
 		this.handleFilterType = this.handleFilterType.bind(this);
+		this.handleDeleteReport = this.handleDeleteReport.bind(this);
 	}
 
 	handleSortBy(event) {
@@ -93,6 +104,14 @@ class ReportList extends React.Component {
 			});
 		}
 	}
+
+	handleDeleteReport(deleteIndex) {
+		this.setState({
+			reports: this.state.reports.filter(
+				(item, index) => deleteIndex !== index
+			)
+		});
+	}
 	render() {
 		const { reports, sort, filter } = this.state;
 
@@ -101,7 +120,8 @@ class ReportList extends React.Component {
 			'Type',
 			'Frequency',
 			'Chart Type',
-			'Active'
+			'Active',
+			'Delete'
 		];
 
 		return (
@@ -127,9 +147,11 @@ class ReportList extends React.Component {
 				</Filter>
 
 				<TableHeader>
-					{tableHeadings.map(heading => {
+					{tableHeadings.map((heading, index) => {
 						return (
-							<TableHeading key={heading}>{heading}</TableHeading>
+							<TableHeading index={index} key={heading}>
+								{heading}
+							</TableHeading>
 						);
 					})}
 				</TableHeader>
@@ -146,7 +168,7 @@ class ReportList extends React.Component {
 						.filter(
 							item => filter === undefined || item.type === filter
 						)
-						.map(report => (
+						.map((report, index) => (
 							<Report
 								key={report.name}
 								name={report.name}
@@ -154,7 +176,9 @@ class ReportList extends React.Component {
 								frequency={report.frequency}
 								active={report.active}
 								chartType={report.chartType}
-								sortBy={() => this.sortBy}
+								deleteReport={() =>
+									this.handleDeleteReport(index)
+								}
 							/>
 						))}
 				</Grid>

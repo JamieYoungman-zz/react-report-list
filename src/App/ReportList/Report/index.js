@@ -2,14 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import Icon from './Icons';
 
-const breakPoints = {
-	xlarge: '1200px',
-	large: '1000px',
-	medium: '800px',
-	small: '600px',
-	xsmall: '400px'
-};
-
 const Wrapper = styled.div`
 	width: 100%;
 	display: flex;
@@ -18,7 +10,7 @@ const Wrapper = styled.div`
 `;
 
 const Item = styled.div`
-	width: 45%;
+	width: 35%;
 	padding: 8px;
 	border-top: 1px solid #ccc;
 	border-right: 1px solid #ccc;
@@ -63,6 +55,12 @@ const Chart = styled(Item)`
 `;
 Chart.displayName = 'Chart';
 
+const Delete = styled(Item)`
+	width: 10%;
+	cursor: pointer;
+`;
+Delete.displayName = 'Delete';
+
 const Report = props => {
 	return (
 		<Wrapper>
@@ -70,11 +68,14 @@ const Report = props => {
 			<Type>{props.type}</Type>
 			<Frequency>{props.frequency}</Frequency>
 			<Chart>
-				<Icon chartType={props.chartType} />
+				<Icon icon={props.chartType} />
 			</Chart>
 			<Active>
 				<ActiveIcon active={props.active} />
 			</Active>
+			<Delete onClick={props.deleteReport}>
+				<Icon icon="delete" />
+			</Delete>
 		</Wrapper>
 	);
 };

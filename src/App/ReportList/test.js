@@ -37,7 +37,14 @@ const MockData = [
 	}
 ];
 
-const tableHeadings = ['Name', 'Type', 'Frequency', 'Chart Type', 'Active'];
+const tableHeadings = [
+	'Name',
+	'Type',
+	'Frequency',
+	'Chart Type',
+	'Active',
+	'Delete'
+];
 
 describe('App', () => {
 	let element;
@@ -124,6 +131,29 @@ describe('App', () => {
 				.at(0)
 				.prop('name')
 		).toEqual('Thirty day visitor report');
+	});
+
+	it('should remove a report from local state if delete is clicked', () => {
+		expect(
+			element
+				.find('Report')
+				.at(0)
+				.prop('name')
+		).toEqual('Thirty day visitor report');
+
+		element
+			.find('Report')
+			.at(0)
+			.prop('deleteReport')();
+
+		expect(
+			element
+				.find('Report')
+				.at(0)
+				.prop('name')
+		).toEqual('Daily visitors report');
+
+		expect(element.find('Report')).toHaveLength(3);
 	});
 
 	it('should sort the list by A-Z or Z-A when an option is selected', () => {

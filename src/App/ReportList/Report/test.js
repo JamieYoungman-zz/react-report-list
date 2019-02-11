@@ -3,6 +3,8 @@ import { shallow } from 'enzyme';
 
 import Report from './';
 
+const mockDeleteReport = jest.fn();
+
 describe('App', () => {
 	let element;
 
@@ -14,6 +16,7 @@ describe('App', () => {
 				frequency="Report Frequency"
 				active={true}
 				chartType="pie"
+				deleteReport={mockDeleteReport}
 			/>
 		);
 	});
@@ -74,7 +77,17 @@ describe('App', () => {
 			element
 				.find('Chart')
 				.find('Icon')
-				.prop('chartType')
+				.prop('icon')
 		).toEqual('pie');
+	});
+
+	it('should have a delete icon', () => {
+		expect(element.find('Delete')).toHaveLength(1);
+	});
+
+	it('should call a delete method when delete is clicked', () => {
+		element.find('Delete').prop('onClick')();
+
+		expect(mockDeleteReport).toHaveBeenCalled();
 	});
 });
