@@ -73,31 +73,17 @@ class ReportList extends React.Component {
 		super(props);
 		this.state = {
 			reports: props.data,
-			filter: undefined
+			filter: undefined,
+			sort: undefined
 		};
 		this.handleSortBy = this.handleSortBy.bind(this);
 		this.handleFilterType = this.handleFilterType.bind(this);
 	}
 
 	handleSortBy(event) {
-		if (event.target.value === 'A-Z') {
-			const copy = [...this.state.reports].sort((a, b) =>
-				a.name.localeCompare(b.name)
-			);
-
-			return this.setState({
-				reports: copy
-			});
-		}
-		if (event.target.value === 'Z-A') {
-			const copy = [...this.state.reports]
-				.sort((a, b) => a.name.localeCompare(b.name))
-				.reverse();
-
-			return this.setState({
-				reports: copy
-			});
-		}
+		this.setState({
+			sort: event.target.value
+		});
 	}
 
 	handleFilterType(event) {
@@ -149,6 +135,13 @@ class ReportList extends React.Component {
 				</TableHeader>
 				<Grid>
 					{reports
+						.sort((a, b) => {
+							if (this.state.sort !== undefined) {
+								return this.state.sort === 'A-Z'
+									? a.name.localeCompare(b.name)
+									: b.name.localeCompare(a.name);
+							}
+						})
 						.filter(
 							item =>
 								this.state.filter === undefined ||
