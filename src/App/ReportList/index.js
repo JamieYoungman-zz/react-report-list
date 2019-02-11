@@ -147,19 +147,17 @@ class ReportList extends React.Component {
 								this.state.filter === undefined ||
 								item.type === this.state.filter
 						)
-						.map(report => {
-							return (
-								<Report
-									key={report.name}
-									name={report.name}
-									type={report.type}
-									frequency={report.frequency}
-									active={report.active}
-									chartType={report.chartType}
-									sortBy={() => this.sortBy}
-								/>
-							);
-						})}
+						.map(report => (
+							<Report
+								key={report.name}
+								name={report.name}
+								type={report.type}
+								frequency={report.frequency}
+								active={report.active}
+								chartType={report.chartType}
+								sortBy={() => this.sortBy}
+							/>
+						))}
 				</Grid>
 			</React.Fragment>
 		);
