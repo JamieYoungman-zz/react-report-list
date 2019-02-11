@@ -34,6 +34,70 @@ const MockData = [
 		filterTypes: ['Device type', 'Operating system'],
 		frequency: 'weekly',
 		active: false
+	},
+	{
+		name: 'Test Report 1',
+		type: 'Age range',
+		chartType: 'bar',
+		filterTypes: ['Device type', 'Operating system'],
+		frequency: 'weekly',
+		active: false
+	},
+	{
+		name: 'Test Report 2',
+		type: 'Age range',
+		chartType: 'bar',
+		filterTypes: ['Device type', 'Operating system'],
+		frequency: 'weekly',
+		active: false
+	},
+	{
+		name: 'Test Report 3',
+		type: 'Age range',
+		chartType: 'bar',
+		filterTypes: ['Device type', 'Operating system'],
+		frequency: 'weekly',
+		active: false
+	},
+	{
+		name: 'Test Report 4',
+		type: 'Age range',
+		chartType: 'bar',
+		filterTypes: ['Device type', 'Operating system'],
+		frequency: 'weekly',
+		active: false
+	},
+	{
+		name: 'Test Report 5',
+		type: 'Age range',
+		chartType: 'bar',
+		filterTypes: ['Device type', 'Operating system'],
+		frequency: 'weekly',
+		active: false
+	},
+	{
+		name: 'Test Report 6',
+		type: 'Gender',
+		chartType: 'bar',
+		filterTypes: ['Device type', 'Operating system'],
+		frequency: 'weekly',
+		active: false
+	},
+	{
+		name: 'Test Report 7',
+		type: 'Visitors',
+		chartType: 'bar',
+		filterTypes: ['Device type', 'Operating system'],
+		frequency: 'weekly',
+		active: false
+	},
+	{
+		name: 'Test Report 8',
+		type: 'Gender',
+		chartType: 'bar',
+		filterTypes: ['Device type', 'Operating system'],
+		frequency: 'weekly',
+		active: false
 	}
 ];
 
@@ -153,7 +217,7 @@ describe('App', () => {
 				.prop('name')
 		).toEqual('Daily visitors report');
 
-		expect(element.find('Report')).toHaveLength(3);
+		expect(element.find('Report')).toHaveLength(11);
 	});
 
 	it('should sort the list by A-Z or Z-A when an option is selected', () => {
@@ -203,7 +267,7 @@ describe('App', () => {
 			target: { value: 'Gender' }
 		});
 
-		expect(element.find('Report')).toHaveLength(1);
+		expect(element.find('Report')).toHaveLength(3);
 		expect(
 			element
 				.find('Report')
@@ -218,7 +282,9 @@ describe('App', () => {
 			target: { value: 'Visitors' }
 		});
 
-		expect(element.find('Report')).toHaveLength(2);
+		expect(element.find('Report')).toHaveLength(3);
+
+		console.log(element.debug());
 		expect(
 			element
 				.find('Report')

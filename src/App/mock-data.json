@@ -39,5 +39,69 @@
         ],
         "frequency": "weekly",
         "active": false
-    }
+    },
+    {
+		"name": "Test Report 1",
+		"type": "Age range",
+		"chartType": "bar",
+		"filterTypes": ["Device type", "Operating system"],
+		"frequency": "weekly",
+		"active": false
+	},
+	{
+		"name": "Test Report 8",
+		"type": "Age range",
+		"chartType": "bar",
+		"filterTypes": ["Device type", "Operating system"],
+		"frequency": "weekly",
+		"active": true
+	},
+	{
+		"name": "Test Report 2",
+		"type": "Visitors",
+		"chartType": "bar",
+		"filterTypes": ["Device type", "Operating system"],
+		"frequency": "weekly",
+		"active": false
+	},
+	{
+		"name": "Test Report 3",
+		"type": "Age range",
+		"chartType": "pie",
+		"filterTypes": ["Device type", "Operating system"],
+		"frequency": "weekly",
+		"active": false
+	},
+	{
+		"name": "Test Report 4",
+		"type": "Gender",
+		"chartType": "bar",
+		"filterTypes": ["Device type", "Operating system"],
+		"frequency": "weekly",
+		"active": true
+	},
+	{
+		"name": "Test Report 5",
+		"type": "Age range",
+		"chartType": "pie",
+		"filterTypes": ["Device type", "Operating system"],
+		"frequency": "weekly",
+		"active": false
+	},
+	{
+		"name": "Test Report 6",
+		"type": "Visitors",
+		"chartType": "bar",
+		"filterTypes": ["Device type", "Operating system"],
+		"frequency": "weekly",
+		"active": true
+	},
+	{
+		"name": "Test Report 7",
+		"type": "Gender",
+		"chartType": "pie",
+		"filterTypes": ["Device type", "Operating system"],
+		"frequency": "weekly",
+		"active": true
+	}
 ]

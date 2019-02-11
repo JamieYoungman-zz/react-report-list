@@ -78,13 +78,31 @@ const FilterLabel = styled.label`
 `;
 FilterLabel.displayName = 'FilterLabel';
 
+const Pagination = styled.div`
+	width: auto;
+	float: right;
+	margin-top: 24px;
+	margin-bottom: 24px;
+`;
+Pagination.displayName = 'Pagination';
+
+const Page = styled.div`
+	border-radius: 6px;
+	padding: 6px 12px;
+	margin-left: 6px;
+	float: left;
+	border: 1px solid #ccc;
+`;
+Page.displayName = 'Page';
+
 class ReportList extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			reports: props.data,
 			filter: undefined,
-			sort: undefined
+			sort: undefined,
+			pageIndex: 0
 		};
 		this.handleSortBy = this.handleSortBy.bind(this);
 		this.handleFilterType = this.handleFilterType.bind(this);
@@ -113,6 +131,7 @@ class ReportList extends React.Component {
 		});
 	}
 	render() {
+		console.log('report sections', this.state.reportsSections);
 		const { reports, sort, filter } = this.state;
 
 		const tableHeadings = [
@@ -123,6 +142,14 @@ class ReportList extends React.Component {
 			'Active',
 			'Delete'
 		];
+
+		let reportSections = [];
+
+		for (let i = 0; i < this.state.reports.length; i += 10) {
+			reportSections.push(this.state.reports.slice(i, i + 10));
+
+			console.log('tempArry', reportSections);
+		}
 
 		return (
 			<React.Fragment>
@@ -156,32 +183,40 @@ class ReportList extends React.Component {
 					})}
 				</TableHeader>
 				<Grid>
-					{reports
-						.sort((a, b) => {
-							if (sort !== undefined) {
-								return sort === 'A-Z'
-									? a.name.localeCompare(b.name)
-									: b.name.localeCompare(a.name);
-							}
-							return reports;
-						})
-						.filter(
-							item => filter === undefined || item.type === filter
-						)
-						.map((report, index) => (
-							<Report
-								key={report.name}
-								name={report.name}
-								type={report.type}
-								frequency={report.frequency}
-								active={report.active}
-								chartType={report.chartType}
-								deleteReport={() =>
-									this.handleDeleteReport(index)
+					{reportSections.map((item, index) => {
+						return item
+							.sort((a, b) => {
+								if (sort !== undefined) {
+									return sort === 'A-Z'
+										? a.name.localeCompare(b.name)
+										: b.name.localeCompare(a.name);
 								}
-							/>
-						))}
+								return reports;
+							})
+							.filter(
+								item =>
+									filter === undefined || item.type === filter
+							)
+							.map((report, index) => (
+								<Report
+									key={report.name}
+									name={report.name}
+									type={report.type}
+									frequency={report.frequency}
+									active={report.active}
+									chartType={report.chartType}
+									deleteReport={() =>
+										this.handleDeleteReport(index)
+									}
+								/>
+							));
+					})}
 				</Grid>
+				<Pagination>
+					{reportSections.map((section, index) => {
+						return <Page key={section}>{index + 1}</Page>;
+					})}
+				</Pagination>
 			</React.Fragment>
 		);
 	}
