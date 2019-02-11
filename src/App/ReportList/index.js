@@ -49,44 +49,66 @@ const Sort = styled.div`
 `;
 Sort.displayName = 'Sort';
 
-const SortSelect = styled.select`
-	padding: 8px;
-`;
-SortSelect.displayName = 'SortSelect';
-
 const SortLabel = styled.label`
 	float: left;
 	margin-right: 12px;
 `;
 SortLabel.displayName = 'SortLabel';
 
+const Filter = styled.div`
+	width: auto;
+	float: left;
+	margin-left: 12px;
+`;
+Filter.displayName = 'Filter';
+
+const FilterLabel = styled.label`
+	float: left;
+	margin-right: 12px;
+`;
+FilterLabel.displayName = 'FilterLabel';
+
 class ReportList extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			reports: props.data
+			reports: props.data,
+			filter: undefined
 		};
 		this.handleSortBy = this.handleSortBy.bind(this);
+		this.handleFilterType = this.handleFilterType.bind(this);
 	}
 
 	handleSortBy(event) {
 		if (event.target.value === 'A-Z') {
+			const copy = [...this.state.reports].sort((a, b) =>
+				a.name.localeCompare(b.name)
+			);
+
 			return this.setState({
-				reports: this.state.reports.sort((a, b) =>
-					a.name.localeCompare(b.name)
-				)
+				reports: copy
 			});
 		}
-		this.setState({
-			reports: this.state.reports
+		if (event.target.value === 'Z-A') {
+			const copy = [...this.state.reports]
 				.sort((a, b) => a.name.localeCompare(b.name))
-				.reverse()
-		});
+				.reverse();
+
+			return this.setState({
+				reports: copy
+			});
+		}
+	}
+
+	handleFilterType(event) {
+		if (event.target.value !== 'Select') {
+			this.setState({
+				filter: event.target.value
+			});
+		}
 	}
 	render() {
 		const { reports } = this.state;
-
-		console.log(reports);
 
 		const tableHeadings = [
 			'Name',
@@ -100,13 +122,23 @@ class ReportList extends React.Component {
 			<React.Fragment>
 				<Title>Report List</Title>
 				<Sort>
-					<SortLabel>Sort Report Name by:</SortLabel>
-					<SortSelect onChange={this.handleSortBy}>
+					<SortLabel>Sort by Report Name:</SortLabel>
+					<select onChange={this.handleSortBy}>
 						<option value="Select">Select</option>
 						<option value="A-Z">A-Z</option>
 						<option value="Z-A">Z-A</option>
-					</SortSelect>
+					</select>
 				</Sort>
+
+				<Filter>
+					<FilterLabel>Filter by type</FilterLabel>
+					<select onChange={this.handleFilterType}>
+						<option value="Select">Select</option>
+						<option value="Visitors">Visitors</option>
+						<option value="Gender">Gender</option>
+						<option value="Age range">Age Range</option>
+					</select>
+				</Filter>
 
 				<TableHeader>
 					{tableHeadings.map(heading => {
@@ -116,19 +148,25 @@ class ReportList extends React.Component {
 					})}
 				</TableHeader>
 				<Grid>
-					{reports.map(report => {
-						return (
-							<Report
-								key={report.name}
-								name={report.name}
-								type={report.type}
-								frequency={report.frequency}
-								active={report.active}
-								chartType={report.chartType}
-								sortBy={() => this.sortBy}
-							/>
-						);
-					})}
+					{reports
+						.filter(
+							item =>
+								this.state.filter === undefined ||
+								item.type === this.state.filter
+						)
+						.map(report => {
+							return (
+								<Report
+									key={report.name}
+									name={report.name}
+									type={report.type}
+									frequency={report.frequency}
+									active={report.active}
+									chartType={report.chartType}
+									sortBy={() => this.sortBy}
+								/>
+							);
+						})}
 				</Grid>
 			</React.Fragment>
 		);

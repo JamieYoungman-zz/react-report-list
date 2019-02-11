@@ -134,7 +134,10 @@ describe('App', () => {
 				.prop('name')
 		).toEqual('Thirty day visitor report');
 
-		element.find('SortSelect').prop('onChange')({
+		element
+			.find('Sort')
+			.find('select')
+			.prop('onChange')({
 			target: { value: 'A-Z' }
 		});
 
@@ -145,7 +148,10 @@ describe('App', () => {
 				.prop('name')
 		).toEqual('Daily visitors report');
 
-		element.find('SortSelect').prop('onChange')({
+		element
+			.find('Sort')
+			.find('select')
+			.prop('onChange')({
 			target: { value: 'Z-A' }
 		});
 
@@ -155,5 +161,39 @@ describe('App', () => {
 				.at(0)
 				.prop('name')
 		).toEqual('Weekly age range report');
+	});
+
+	it('should filter the results by the report type', () => {
+		expect(element.find('Filter')).toHaveLength(1);
+
+		element
+			.find('Filter')
+			.find('select')
+			.prop('onChange')({
+			target: { value: 'Gender' }
+		});
+
+		expect(element.find('Report')).toHaveLength(1);
+		expect(
+			element
+				.find('Report')
+				.at(0)
+				.prop('name')
+		).toEqual('Thirty day gender report');
+
+		element
+			.find('Filter')
+			.find('select')
+			.prop('onChange')({
+			target: { value: 'Visitors' }
+		});
+
+		expect(element.find('Report')).toHaveLength(2);
+		expect(
+			element
+				.find('Report')
+				.at(1)
+				.prop('name')
+		).toEqual('Daily visitors report');
 	});
 });
