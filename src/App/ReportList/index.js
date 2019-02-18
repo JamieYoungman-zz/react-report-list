@@ -100,8 +100,6 @@ class ReportList extends React.Component {
 		super(props);
 		this.state = {
 			reports: props.data,
-			filter: undefined,
-			sort: undefined,
 			pageIndex: 0
 		};
 		this.handleSortBy = this.handleSortBy.bind(this);
@@ -110,15 +108,32 @@ class ReportList extends React.Component {
 	}
 
 	handleSortBy(event) {
+		const copy = [...this.state.reports];
+
+		if (event.target.value === 'Select') {
+			return this.setState({
+				reports: this.props.data
+			});
+		}
+
+		copy.sort((a, b) => {
+			return event.target.value === 'A-Z'
+				? a.name.localeCompare(b.name)
+				: b.name.localeCompare(a.name);
+		});
+
 		this.setState({
-			sort: event.target.value
+			reports: copy
 		});
 	}
 
 	handleFilterType(event) {
+		console.log(event);
 		if (event.target.value !== 'Select') {
 			this.setState({
-				filter: event.target.value
+				reports: this.props.data.filter(
+					item => item.type === event.target.value
+				)
 			});
 		}
 	}
@@ -131,8 +146,8 @@ class ReportList extends React.Component {
 		});
 	}
 	render() {
-		console.log('report sections', this.state.reportsSections);
-		const { reports, sort, filter } = this.state;
+		// console.log('report sections', this.state.reportsSections);
+		const { reports } = this.state;
 
 		const tableHeadings = [
 			'Name',
@@ -148,7 +163,7 @@ class ReportList extends React.Component {
 		for (let i = 0; i < this.state.reports.length; i += 10) {
 			reportSections.push(this.state.reports.slice(i, i + 10));
 
-			console.log('tempArry', reportSections);
+			// console.log('tempArry', reportSections);
 		}
 
 		return (
@@ -183,34 +198,17 @@ class ReportList extends React.Component {
 					})}
 				</TableHeader>
 				<Grid>
-					{reportSections.map((item, index) => {
-						return item
-							.sort((a, b) => {
-								if (sort !== undefined) {
-									return sort === 'A-Z'
-										? a.name.localeCompare(b.name)
-										: b.name.localeCompare(a.name);
-								}
-								return reports;
-							})
-							.filter(
-								item =>
-									filter === undefined || item.type === filter
-							)
-							.map((report, index) => (
-								<Report
-									key={report.name}
-									name={report.name}
-									type={report.type}
-									frequency={report.frequency}
-									active={report.active}
-									chartType={report.chartType}
-									deleteReport={() =>
-										this.handleDeleteReport(index)
-									}
-								/>
-							));
-					})}
+					{reports.map((report, index) => (
+						<Report
+							key={report.name}
+							name={report.name}
+							type={report.type}
+							frequency={report.frequency}
+							active={report.active}
+							chartType={report.chartType}
+							deleteReport={() => this.handleDeleteReport(index)}
+						/>
+					))}
 				</Grid>
 				<Pagination>
 					{reportSections.map((section, index) => {
