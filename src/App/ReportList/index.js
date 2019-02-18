@@ -128,7 +128,6 @@ class ReportList extends React.Component {
 	}
 
 	handleFilterType(event) {
-		console.log(event);
 		if (event.target.value !== 'Select') {
 			this.setState({
 				reports: this.props.data.filter(
